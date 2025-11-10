@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const SAMPLE_SUPPLIERS = [
-  { id: 's1', name: 'BrightLights', contact: 'info@brightlights.com', phone: '+1 555-0101' },
-  { id: 's2', name: 'CableWorks', contact: 'sales@cableworks.co', phone: '+1 555-0202' },
-  { id: 's3', name: 'FurniCo', contact: 'hello@furnico.com', phone: '+1 555-0303' }
+  { id: 's1', name: 'Super Computers', contact: 'info@supercomputers.com', phone: '+11 555-0101' },
+  { id: 's2', name: 'CableWorks', contact: 'sales@cableworks.co', phone: '+91 555-0202' },
+  { id: 's3', name: 'Hewlett Packard', contact: 'hello@hp.com', phone: '+19 555-0303' }
 ]
 
 export default function Suppliers(){

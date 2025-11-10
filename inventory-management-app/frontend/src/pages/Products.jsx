@@ -3,14 +3,14 @@ import api from '../services/api'
 import { useNavigate } from 'react-router-dom'
 
 const SAMPLE_DATA = [
-  { _id: '1', name: 'USB Cable', sku: 'CB-003', quantity: 156, reorderLevel: 50, price: 9.99, status: 'In Stock', category: 'Accessories' },
-  { _id: '2', name: 'Desk Lamp', sku: 'LP-006', quantity: 22, reorderLevel: 15, price: 79.99, status: 'In Stock', category: 'Furniture' }
+  { _id: '1', name: 'USB Cable', sku: 'CB-003', quantity: 156, reorderLevel: 50, price: 9.99, status: 'In Stock', category: 'Peripherals' },
+  { _id: '2', name: 'HP All-in-One', sku: 'LP-006', quantity: 22, reorderLevel: 15, price: 79.99, status: 'In Stock', category: 'Desktops' }
 ]
 
 export default function Products() {
   const [products] = useState(SAMPLE_DATA)
   const [search, setSearch] = useState('')
-  const [category, setCategory] = useState('Accessories')
+  const [category, setCategory] = useState('Peripherals')
   const navigate = useNavigate()
 
   const filteredProducts = products.filter(p => 
@@ -32,7 +32,7 @@ export default function Products() {
     return (product.price * product.quantity).toFixed(2)
   }
 
-  const categories = ['All', 'Furniture', 'Accessories', 'Electronics']
+  const categories = ['All', 'Peripherals', 'Desktops', '']
 
   return (
     <div className="container container-app">
@@ -45,7 +45,7 @@ export default function Products() {
             <input 
               type="text" 
               className="form-control form-control-lg ps-5" 
-              placeholder="Search by name or SKU..."
+              placeholder="Search by name"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
