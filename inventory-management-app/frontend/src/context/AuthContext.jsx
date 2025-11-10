@@ -5,14 +5,10 @@ const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
-  const [initializing, setInitializing] = useState(true)
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-    if (!token) {
-      setInitializing(false)
-      return
-    }
+    if (!token) return
     // try to fetch user info
     const load = async () => {
       try {
@@ -21,24 +17,14 @@ export const AuthProvider = ({ children }) => {
       } catch (err) {
         console.error('Auth fetch failed', err)
         setUser(null)
-      } finally {
-        setInitializing(false)
       }
     }
     load()
   }, [])
 
-  const login = async (data) => {
-    // store token first so subsequent requests include it
+  const login = (data) => {
     localStorage.setItem('token', data.token)
-    // try fetching full user profile from server
-    try {
-      const res = await api.get('/auth/me')
-      setUser(res.data.user || null)
-    } catch (err) {
-      console.error('Failed to load user after login', err)
-      setUser(null)
-    }
+    if (data.user) setUser(data.user)
   }
   const logout = () => {
     localStorage.removeItem('token')
@@ -46,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, initializing }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   )

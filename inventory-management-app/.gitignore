@@ -1,5 +1,25 @@
-node_modules/
+# Dependencies
+/node_modules
+/backend/node_modules
+/frontend/node_modules
+
+# Production
+/build
+/dist
+
+# Env
 .env
-/frontend/node_modules/
-/backend/node_modules/
-dist/
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/

@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import api from '../services/api'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { useTheme } from '../context/ThemeContext'
-import '../styles/auth.css'
 
 export default function Signup(){
   const [form, setForm] = useState({ name: '', email: '', password: '' })
@@ -22,62 +20,28 @@ export default function Signup(){
     } catch (err) { console.error(err) }
   }
 
-  const { isDark, toggleTheme } = useTheme();
-
   return (
     <div className="container container-app">
-      <div className="card card-app auth-card">
-        <h2 className="auth-title">Create your account</h2>
-        <form onSubmit={handleSubmit} className="auth-form row g-4">
+      <div className="card card-app p-4">
+        <h3 className="mb-3">Create an account</h3>
+        <form onSubmit={handleSubmit} className="row g-3">
           <div className="col-12">
             <label className="form-label">Name</label>
-            <input 
-              className="form-control form-control-lg" 
-              name="name" 
-              placeholder="Enter your name"
-              onChange={handleChange} 
-              required 
-            />
+            <input className="form-control" name="name" placeholder="Name" onChange={handleChange} required />
           </div>
           <div className="col-12">
             <label className="form-label">Email</label>
-            <input 
-              className="form-control form-control-lg" 
-              name="email" 
-              type="email"
-              placeholder="Enter your email" 
-              onChange={handleChange} 
-              required 
-            />
+            <input className="form-control" name="email" placeholder="Email" onChange={handleChange} required />
           </div>
           <div className="col-12">
             <label className="form-label">Password</label>
-            <input 
-              className="form-control form-control-lg" 
-              name="password" 
-              type="password" 
-              placeholder="Choose a password"
-              onChange={handleChange} 
-              required 
-            />
+            <input className="form-control" name="password" placeholder="Password" type="password" onChange={handleChange} required />
           </div>
-          <div className="col-12 mt-4">
-            <button className="btn btn-primary btn-lg w-100" type="submit">
-              Create Account
-            </button>
+          <div className="col-12">
+            <button className="btn btn-primary w-100" type="submit">Sign up</button>
           </div>
         </form>
-        <div className="auth-footer">
-          Already have an account? <Link to="/login">Sign in</Link>
-        </div>
       </div>
-      <button 
-        className="theme-toggle"
-        onClick={toggleTheme}
-        title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      >
-        <i className={`bi bi-${isDark ? "sun" : "moon"}`} />
-      </button>
     </div>
   )
 }

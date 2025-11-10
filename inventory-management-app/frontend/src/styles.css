@@ -9,6 +9,18 @@
   --danger-red: #ef4444;
 }
 
+/* Light theme overrides - apply by adding .light-theme to <body> */
+body.light-theme {
+  --bg-dark: #f5f7fb;
+  --bg-card: #ffffff;
+  --text-primary: #0b1220;
+  --text-secondary: #6b7280;
+  --border-color: #e6e9ef;
+  --accent-blue: #2563eb;
+  --success-green: #16a34a;
+  --danger-red: #dc2626;
+}
+
 body {
   background: var(--bg-dark);
   color: var(--text-primary);
@@ -340,3 +352,14 @@ tr:hover td {
 .notify-body { font-size: 0.9rem }
 .notify-time { font-size: 0.75rem }
 .notify-empty { padding: 12px; text-align: center }
+
+/* subtle pulse for unread notifications */
+.notify-item.unread {
+  animation: pulse 2.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.06); }
+  70% { box-shadow: 0 10px 30px -10px rgba(59,130,246,0.06); }
+  100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+}

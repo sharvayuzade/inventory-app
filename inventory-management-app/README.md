@@ -1,16 +1,25 @@
-# Inventory Management App
+# Full-Stack Inventory Management App
 
-This repository is a Full Stack Inventory Management project.
+This is a MERN stack (MongoDB, Express, React, Node.js) application for managing a personal inventory.
 
-Structure follows the sample provided in the assignment:
+## Features
 
-- backend/ - Node + Express + MongoDB
-- frontend/ - React + Vite
+- User Registration and Login (JWT Authentication)
+- Full CRUD (Create, Read, Update, Delete) operations for inventory items
+- Users can only view and manage their own items
+- Protected routes on both frontend and backend
 
-Quick start:
+## Setup
 
-1. Copy `.env.example` to `backend/.env` and set `MONGO_URI` and `JWT_SECRET`.
-2. In `backend` run `npm install` then `npm run dev`.
-3. In `frontend` run `npm install` then `npm run dev`.
+1.  **Backend**
+    - `cd backend`
+    - `npm install`
+    - Create a `.env` file and add your `MONGO_URI` and `JWT_SECRET`.
+    - `npm run dev` (to start the server with nodemon)
 
-This includes basic auth routes (register/login) and can be extend for inventory features.
+2.  **Frontend**
+    - `cd frontend`
+    - `npm install`
+    - `npm run dev` (to start the Vite dev server)
+
+3.  Access the app at `http://localhost:5173`.

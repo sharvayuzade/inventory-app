@@ -1,154 +1,54 @@
 import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { FaUser } from 'react-icons/fa'
 
 export default function Profile() {
-  const { user, updateUser } = useAuth()
-  const [isEditing, setIsEditing] = useState(false)
-  const [formData, setFormData] = useState({
-    name: user?.name || '',
-    email: user?.email || '',
-    phone: user?.phone || '',
-    role: user?.role || 'user'
-  })
+  const { user } = useAuth()
+  const [editing, setEditing] = useState(false)
+  const [name, setName] = useState(user?.name || '')
+  const [email, setEmail] = useState(user?.email || '')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    updateUser(formData)
-    setIsEditing(false)
-  }
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
+  const handleSave = () => {
+    // No backend integration in this basic page. Just toggle editing off.
+    setEditing(false)
+    // Could integrate context update later
   }
 
   return (
-    <div className="container py-5">
-      <div className="row">
-        <div className="col-md-4">
-          <div className="card-app text-center p-4">
-            <img 
-              src={`https://ui-avatars.com/api/?name=${user?.name || 'User'}&size=150&background=random`}
-              alt="Profile"
-              className="rounded-circle mb-3"
-            />
-            <h4>{user?.name}</h4>
-            <p className="text-muted">{user?.role}</p>
-            <button 
-              className="btn btn-primary mt-3"
-              onClick={() => setIsEditing(!isEditing)}
-            >
-              {isEditing ? 'Cancel Edit' : 'Edit Profile'}
-            </button>
+    <div className="container container-app">
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h2 className="m-0"><FaUser style={{marginRight:8}}/>Profile</h2>
+      </div>
+
+      <div className="card-app p-4" style={{ maxWidth: 800 }}>
+        <div className="d-flex align-items-center mb-4">
+          <div style={{ width: 100, height: 100, borderRadius: '50%', background: '#ddd', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 36, color: '#666', marginRight: 20 }}>
+            {name ? name.charAt(0).toUpperCase() : 'U'}
+          </div>
+          <div>
+            {!editing ? (
+              <>
+                <h4 className="m-0">{name || 'Unnamed User'}</h4>
+                <p className="text-muted mb-0">{email || 'No email provided'}</p>
+              </>
+            ) : (
+              <>
+                <input className="form-control mb-2" value={name} onChange={(e) => setName(e.target.value)} placeholder="Display name" />
+                <input className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+              </>
+            )}
           </div>
         </div>
 
-        <div className="col-md-8">
-          <div className="card-app p-4">
-            <h4 className="mb-4">Profile Information</h4>
-            
-            {isEditing ? (
-              <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  <label className="form-label">Full Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label className="form-label">Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label className="form-label">Phone Number</label>
-                  <input
-                    type="tel"
-                    className="form-control"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label className="form-label">Role</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={formData.role}
-                    disabled
-                  />
-                </div>
-
-                <button type="submit" className="btn btn-primary">
-                  Save Changes
-                </button>
-              </form>
-            ) : (
-              <div>
-                <div className="row mb-3">
-                  <div className="col-4 text-muted">Full Name</div>
-                  <div className="col-8">{user?.name}</div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col-4 text-muted">Email</div>
-                  <div className="col-8">{user?.email}</div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col-4 text-muted">Phone</div>
-                  <div className="col-8">{user?.phone || '-'}</div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col-4 text-muted">Role</div>
-                  <div className="col-8">{user?.role}</div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="card-app p-4 mt-4">
-            <h4 className="mb-4">Activity</h4>
-            <div className="timeline">
-              <div className="timeline-item">
-                <i className="bi bi-circle-fill text-primary"></i>
-                <div>
-                  <p className="mb-1">Added new product: RTX 3060 Ti</p>
-                  <small className="text-muted">2 hours ago</small>
-                </div>
-              </div>
-              <div className="timeline-item">
-                <i className="bi bi-circle-fill text-success"></i>
-                <div>
-                  <p className="mb-1">Updated inventory levels</p>
-                  <small className="text-muted">5 hours ago</small>
-                </div>
-              </div>
-              <div className="timeline-item">
-                <i className="bi bi-circle-fill text-info"></i>
-                <div>
-                  <p className="mb-1">Generated monthly report</p>
-                  <small className="text-muted">1 day ago</small>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div>
+          {!editing ? (
+            <button className="btn btn-primary" onClick={() => setEditing(true)}>Edit Profile</button>
+          ) : (
+            <>
+              <button className="btn btn-success mr-2" onClick={handleSave}>Save</button>
+              <button className="btn btn-secondary" onClick={() => setEditing(false)}>Cancel</button>
+            </>
+          )}
         </div>
       </div>
     </div>
