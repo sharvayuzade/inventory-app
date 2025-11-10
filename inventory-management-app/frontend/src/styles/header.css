@@ -1,0 +1,161 @@
+/* Header Styles */
+.navbar-header {
+  padding: 0.75rem 1.5rem;
+  background: var(--bs-body-bg);
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+/* Search Input */
+.navbar-header .input-group {
+  width: 300px;
+}
+
+.navbar-header .input-group-text,
+.navbar-header .form-control {
+  border-color: var(--bs-border-color);
+}
+
+/* Icon Buttons */
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--bs-body-color);
+  transition: all 0.2s ease;
+}
+
+.btn-icon:hover {
+  background: var(--bs-secondary-bg);
+}
+
+.btn-icon i {
+  font-size: 1.25rem;
+}
+
+/* Notifications */
+.notification-menu {
+  width: 320px;
+  padding: 0;
+  margin-top: 0.5rem;
+}
+
+.dropdown-header {
+  padding: 1rem;
+  background: var(--bs-tertiary-bg);
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.notification-list {
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  display: flex;
+  padding: 1rem;
+  border-bottom: 1px solid var(--bs-border-color);
+  transition: background-color 0.2s ease;
+}
+
+.notification-item:hover {
+  background: var(--bs-secondary-bg);
+}
+
+.notification-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bs-secondary-bg);
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.notification-message {
+  color: var(--bs-secondary-color);
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.notification-time {
+  color: var(--bs-secondary-color);
+  font-size: 0.75rem;
+}
+
+.dropdown-footer {
+  padding: 0.5rem;
+  text-align: center;
+  border-top: 1px solid var(--bs-border-color);
+}
+
+/* User Menu */
+.dropdown-menu {
+  margin-top: 0.5rem;
+  padding: 0;
+  min-width: 240px;
+}
+
+.dropdown-menu .dropdown-header {
+  padding: 1rem;
+}
+
+.dropdown-menu .dropdown-item {
+  padding: 0.75rem 1rem;
+}
+
+.dropdown-menu .dropdown-item i {
+  font-size: 1.25rem;
+}
+
+/* Dark Mode Adjustments */
+[data-bs-theme="dark"] .navbar-header {
+  background: var(--bs-dark);
+  border-color: var(--bs-dark-border-subtle);
+}
+
+[data-bs-theme="dark"] .dropdown-menu {
+  background: var(--bs-dark);
+  border-color: var(--bs-dark-border-subtle);
+}
+
+[data-bs-theme="dark"] .dropdown-header {
+  background: var(--bs-dark);
+  border-color: var(--bs-dark-border-subtle);
+}
+
+[data-bs-theme="dark"] .notification-item {
+  border-color: var(--bs-dark-border-subtle);
+}
+
+[data-bs-theme="dark"] .notification-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Status Colors */
+.text-alert {
+  color: var(--bs-warning);
+}
+
+.text-info {
+  color: var(--bs-info);
+}
+
+.text-success {
+  color: var(--bs-success);
+}

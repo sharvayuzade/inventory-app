@@ -1,0 +1,116 @@
+/* Dark mode table styles */
+body:not(.light-mode) .table {
+  --bs-table-color: #e9ecef;
+  --bs-table-bg: transparent;
+  --bs-table-border-color: rgba(255, 255, 255, 0.1);
+  --bs-table-accent-bg: rgba(255, 255, 255, 0.05);
+  --bs-table-striped-color: #e9ecef;
+  --bs-table-striped-bg: rgba(255, 255, 255, 0.05);
+  --bs-table-hover-color: #fff;
+  --bs-table-hover-bg: rgba(255, 255, 255, 0.075);
+}
+
+body:not(.light-mode) .table thead th {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body:not(.light-mode) .table td {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Home page specific styles */
+.hero-section {
+  padding: 5rem 0;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 100%);
+  border-radius: 1rem;
+  margin-bottom: 3rem;
+}
+
+.hero-section .display-4 {
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, var(--bs-primary) 0%, #4dabf7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.quick-action-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.quick-action-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.feature-card {
+  border-radius: 1rem;
+  height: 100%;
+}
+
+.feature-card .bi {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: rgba(var(--bs-primary-rgb), 0.1);
+  color: var(--bs-primary);
+  margin-bottom: 1rem;
+}
+
+/* Table improvements */
+.table-dark-theme {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.table-dark-theme thead th {
+  background: rgba(255, 255, 255, 0.05);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.table-dark-theme tbody tr:hover {
+  background: rgba(var(--bs-primary-rgb), 0.1);
+}
+
+/* Card improvements */
+.card-app {
+  transition: transform 0.2s;
+}
+
+.card-app:hover {
+  transform: translateY(-2px);
+}
+
+/* Status badges */
+.badge {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.badge.bg-success-subtle {
+  background: rgba(25, 135, 84, 0.1) !important;
+}
+
+.badge.bg-danger-subtle {
+  background: rgba(220, 53, 69, 0.1) !important;
+}
+
+/* Button improvements */
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+}
+
+.btn-outline-secondary {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-outline-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}

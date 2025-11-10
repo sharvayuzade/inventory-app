@@ -1,11 +1,31 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
-export default function Navbar(){
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-  const [open, setOpen] = useState(false) // mobile menu
+export default function Navbar() {
+  const { user } = useAuth()
+  const [isCollapsed, setIsCollapsed] = useState(false)
+
+  const menuItems = [
+    {
+      group: 'Main',
+      items: [
+        { path: '/', icon: 'speedometer2', label: 'Dashboard' },
+        { path: '/products', icon: 'box-seam', label: 'Products' },
+        { path: '/suppliers', icon: 'truck', label: 'Suppliers' }
+      ]
+    },
+    {
+      group: 'Categories',
+      items: [
+        { path: '/products?category=laptops', icon: 'laptop', label: 'Laptops' },
+        { path: '/products?category=components', icon: 'cpu', label: 'Components' },
+        { path: '/products?category=peripherals', icon: 'keyboard', label: 'Peripherals' },
+        { path: '/products?category=networking', icon: 'router', label: 'Networking' },
+        { path: '/products?category=security', icon: 'camera-video', label: 'CCTV & Security' }
+      ]
+    }
+  ]
   const [userMenu, setUserMenu] = useState(false)
   const [query, setQuery] = useState('')
   const userMenuRef = useRef(null)
@@ -69,8 +89,15 @@ export default function Navbar(){
           </form>
         </div>
 
-        <div className="nav-actions d-flex align-items-center gap-3">
-          <div className="position-relative" ref={notifRef}>
+          <div className="nav-actions d-flex align-items-center gap-3">
+            <button 
+              className="btn btn-icon"
+              onClick={toggleTheme}
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              <i className={`bi bi-${isDark ? "sun" : "moon"}-fill`} />
+            </button>
+            <div className="position-relative" ref={notifRef}>
             <button className="btn-notify" title="Notifications" onClick={() => setNotifOpen(v => !v)} aria-expanded={notifOpen}>
               <i className="bi bi-bell" />
               <span className="notify-badge">{notifications.filter(n => !n.read).length}</span>

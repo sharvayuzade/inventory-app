@@ -1,11 +1,43 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { suppliers as SAMPLE_SUPPLIERS } from '../data/suppliers'
 
-const SAMPLE_SUPPLIERS = [
-  { id: 's1', name: 'Super Computers', contact: 'info@supercomputers.com', phone: '+11 555-0101' },
-  { id: 's2', name: 'CableWorks', contact: 'sales@cableworks.co', phone: '+91 555-0202' },
-  { id: 's3', name: 'Hewlett Packard', contact: 'hello@hp.com', phone: '+19 555-0303' }
-]
+const SupplierList = () => {
+  return (
+    <div className="card-app p-3">
+      <table className="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Contact Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Categories</th>
+          </tr>
+        </thead>
+        <tbody>
+          {SAMPLE_SUPPLIERS.map(s => (
+            <tr key={s.id} onClick={() => navigate(`/suppliers/${s.id}/edit`)} style={{ cursor: 'pointer' }}>
+              <td>{s.name}</td>
+              <td className="text-muted">{s.contact}</td>
+              <td>{s.phone}</td>
+              <td>{s.address}</td>
+              <td>
+                <div className="d-flex gap-1 flex-wrap">
+                  {s.categories.map(cat => (
+                    <span key={cat} className="badge bg-primary-subtle text-primary rounded-pill px-2">
+                      {cat}
+                    </span>
+                  ))}
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
 
 export default function Suppliers(){
   const [suppliers] = useState(SAMPLE_SUPPLIERS)
@@ -25,14 +57,26 @@ export default function Suppliers(){
               <th>Name</th>
               <th>Contact Email</th>
               <th>Phone</th>
+              <th>Address</th>
+              <th>Categories</th>
             </tr>
           </thead>
           <tbody>
             {suppliers.map(s => (
-              <tr key={s.id}>
+              <tr key={s.id} onClick={() => navigate(`/suppliers/${s.id}/edit`)} style={{ cursor: 'pointer' }}>
                 <td>{s.name}</td>
                 <td className="text-muted">{s.contact}</td>
                 <td>{s.phone}</td>
+                <td>{s.address}</td>
+                <td>
+                  <div className="d-flex gap-1 flex-wrap">
+                    {s.categories.map(cat => (
+                      <span key={cat} className="badge bg-primary-subtle text-primary rounded-pill px-2">
+                        {cat}
+                      </span>
+                    ))}
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>

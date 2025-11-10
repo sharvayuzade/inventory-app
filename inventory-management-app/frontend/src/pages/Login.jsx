@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import api from '../services/api'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useTheme } from '../context/ThemeContext'
+import '../styles/auth.css'
 
 export default function Login(){
   const [form, setForm] = useState({ email: '', password: '' })
@@ -20,11 +22,13 @@ export default function Login(){
     } catch (err) { console.error(err) }
   }
 
+  const { isDark, toggleTheme } = useTheme();
+
   return (
     <div className="container container-app">
-      <div className="card card-app p-4" style={{ maxWidth: 540, margin: '80px auto' }}>
-        <h2 className="mb-4 text-white fw-bold">Sign in to your account</h2>
-        <form onSubmit={handleSubmit} className="row g-4">
+      <div className="card card-app auth-card">
+        <h2 className="auth-title">Welcome to Nimix Computers</h2>
+        <form onSubmit={handleSubmit} className="auth-form row g-4">
           <div className="col-12">
             <label className="form-label">Email</label>
             <input 
@@ -49,11 +53,21 @@ export default function Login(){
           </div>
           <div className="col-12 mt-4">
             <button className="btn btn-primary btn-lg w-100" type="submit">
-              Login
+              Sign In
             </button>
           </div>
         </form>
+        <div className="auth-footer">
+          Don't have an account? <Link to="/signup">Sign up</Link>
+        </div>
       </div>
+      <button 
+        className="theme-toggle"
+        onClick={toggleTheme}
+        title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      >
+        <i className={`bi bi-${isDark ? "sun" : "moon"}`} />
+      </button>
     </div>
   )
 }

@@ -1,113 +1,109 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import api from '../services/api'
 import { useAuth } from '../context/AuthContext'
+import '../styles/dark-theme.css'
 
-const SAMPLE_PRODUCTS = [
-  { _id: '1', name: 'RTX 3060 Ti', sku: 'GPU-3060TI', quantity: 6, reorderLevel: 3, price: 29999, status: 'In Stock', category: 'Graphics Cards' },
-  { _id: '2', name: 'AMD Ryzen 5 7600X', sku: 'CPU-7600X', quantity: 2, reorderLevel: 3, price: 34999, status: 'Low Stock', category: 'Processors' },
-  { _id: '3', name: 'WD Black 2TB NVMe', sku: 'SSD-2TB', quantity: 15, reorderLevel: 5, price: 19999, status: 'In Stock', category: 'Storage' },
-  { _id: '4', name: 'Razer Huntsman', sku: 'KB-HUNT', quantity: 4, reorderLevel: 5, price: 14999, status: 'Low Stock', category: 'Peripherals' },
-  { _id: '5', name: 'ViewSonic 27" 165Hz', sku: 'MON-VS27', quantity: 3, reorderLevel: 2, price: 24999, status: 'In Stock', category: 'Monitors' }
+const slides = [
+  {
+    id: 1,
+    title: 'Manage Your Inventory',
+    description: 'Track your computer hardware stock efficiently',
+    image: 'https://via.placeholder.com/1200x400?text=Inventory+Management',
+    color: 'primary'
+  },
+  {
+    id: 2,
+    title: 'Real-time Analytics',
+    description: 'Get insights about your stock levels and sales',
+    image: 'https://via.placeholder.com/1200x400?text=Analytics',
+    color: 'success'
+  },
+  {
+    id: 3,
+    title: 'CCTV & Security',
+    description: 'Complete surveillance system inventory tracking',
+    image: 'https://via.placeholder.com/1200x400?text=CCTV+Systems',
+    color: 'info'
+  }
+]
+]
+
+const features = [
+  { icon: 'pc-display', title: 'Computer Hardware', desc: 'Manage your PC components, laptops, and accessories inventory' },
+  { icon: 'camera-video', title: 'CCTV Systems', desc: 'Track security camera systems and surveillance equipment' },
+  { icon: 'tools', title: 'Service Center', desc: 'Keep track of repair parts and accessories' },
+  { icon: 'boxes', title: 'Stock Management', desc: 'Real-time inventory tracking and alerts' },
+  { icon: 'people', title: 'Supplier Network', desc: 'Maintain relationships with hardware vendors' },
+  { icon: 'bar-chart', title: 'Analytics', desc: 'Monitor stock levels and inventory value' },
 ]
 
 export default function Home() {
-  const [stats, setStats] = useState({ total: 0, value: 0, lowStock: 0, categories: 0 })
-  const [products] = useState(SAMPLE_PRODUCTS)
-  const { user } = useAuth()
   const navigate = useNavigate()
-
-  React.useEffect(() => {
-    setStats({
-      total: products.length,
-      value: products.reduce((sum, p) => sum + (p.price * p.quantity), 0),
-      lowStock: products.filter(p => p.quantity < p.reorderLevel).length,
-      categories: new Set(products.map(p => p.category)).size
-    })
-  }, [products])
-
-  const categoryStats = React.useMemo(() => {
-    const stats = products.reduce((acc, p) => {
-      acc[p.category] = (acc[p.category] || 0) + 1
-      return acc
-    }, {})
-    return Object.entries(stats).map(([name, count]) => ({ name, count }))
-  }, [products])
-
-  const formatINR = (amount) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR'
-    }).format(amount)
-  }
+  const { user } = useAuth()
 
   return (
-    <div className="container container-app">
-      <div className="mb-4 d-flex justify-content-between align-items-center">
-        <div>
-          <h4 className="m-0">Dashboard Overview</h4>
-          <p className="text-muted mb-0">Welcome to Nimix Computers Inventory</p>
+    <div className="container py-5">
+      <div className="text-center mb-5">
+        <h1 className="display-4 fw-bold">Welcome to Inventory Manager</h1>
+        <p className="lead mb-4">Your smart solution for managing inventory efficiently</p>
+        <div className="d-flex justify-content-center gap-3">
+          <button 
+            className="btn btn-primary px-4 py-2"
+            onClick={() => navigate('/products/new')}
+          >
+            Get Started
+          </button>
+          <button 
+            className="btn btn-outline-secondary px-4 py-2"
+            onClick={() => navigate('/dashboard')}
+          >
+            View Dashboard
+          </button>
         </div>
-        <button className="btn btn-primary" onClick={() => navigate('/products/new')}>+ Add Product</button>
       </div>
 
-      <div className="row g-4 mb-4">
-        <div className="col-md-3">
-          <div className="card-app stats-card">
-            <div className="stats-label">Total Items</div>
-            <div className="stats-value">{stats.total}</div>
-            <div className="text-muted">Across all categories</div>
-          </div>
-        </div>
-        <div className="col-md-3">
-          <div className="card-app stats-card">
-            <div className="stats-label">Inventory Value</div>
-            <div className="stats-value">{formatINR(stats.value)}</div>
-            <div className="text-muted">Total stock value</div>
-          </div>
-        </div>
-        <div className="col-md-3">
-          <div className="card-app stats-card">
-            <div className="stats-label">Low Stock</div>
-            <div className="stats-value text-danger">{stats.lowStock}</div>
-            <div className="text-muted">Items below threshold</div>
-          </div>
-        </div>
-        <div className="col-md-3">
-          <div className="card-app stats-card">
-            <div className="stats-label">Categories</div>
-            <div className="stats-value">{stats.categories}</div>
-            <div className="text-muted">Active categories</div>
+      <div className="row mb-5">
+        <div className="col-12">
+          <h2 className="h3 mb-4">Quick Actions</h2>
+          <div className="row g-4">
+            {quickActions.map((action, index) => (
+              <div key={index} className="col-md-3">
+                <div 
+                  className="card-app h-100 cursor-pointer"
+                  onClick={() => navigate(action.link)}
+                >
+                  <div className="d-flex align-items-center mb-3">
+                    <i className={`bi bi-${action.icon} fs-4 text-primary me-2`}></i>
+                    <h3 className="h5 mb-0">{action.title}</h3>
+                  </div>
+                  <p className="text-muted mb-0">{action.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
       
-      <div className="row g-4 mb-4">
-        <div className="col-md-8">
-          <div className="card-app">
-            <div className="p-4 border-bottom border-secondary">
-              <h5 className="m-0">Low Stock Alerts</h5>
-              <div className="text-muted">Items that need attention</div>
-            </div>
-            <div className="table-responsive">
-              <table className="table table-hover mb-0">
-                <thead>
-                  <tr>
-                    <th>Product</th>
-                    <th>Current Stock</th>
-                    <th>Reorder Level</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {products.filter(p => p.quantity < p.reorderLevel).map(p => (
-                    <tr key={p._id}>
-                      <td>{p.name}</td>
-                      <td>{p.quantity}</td>
-                      <td>{p.reorderLevel}</td>
-                      <td>
-                        <span className="badge bg-danger-subtle text-danger rounded-pill px-3">
-                          Low Stock
+      <div className="row">
+        <div className="col-12">
+          <h2 className="h3 mb-4">Key Features</h2>
+          <div className="row g-4">
+            {features.map((feature, index) => (
+              <div key={index} className="col-md-4">
+                <div className="card-app h-100">
+                  <div className="d-flex align-items-center mb-3">
+                    <i className={`bi bi-${feature.icon} fs-4 text-primary me-2`}></i>
+                    <h3 className="h5 mb-0">{feature.title}</h3>
+                  </div>
+                  <p className="text-muted mb-0">{feature.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
                         </span>
                       </td>
                     </tr>
