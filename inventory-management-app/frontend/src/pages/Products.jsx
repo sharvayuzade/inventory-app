@@ -32,7 +32,7 @@ export default function Products() {
     return (product.price * product.quantity).toFixed(2)
   }
 
-  const categories = ['All', 'Peripherals', 'Desktops', '']
+  const categories = ['All', 'Peripherals', 'Desktops', 'Laptops']
 
   return (
     <div className="container container-app">
